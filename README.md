@@ -1,6 +1,7 @@
 # Complete CICD pipeline for deploying a sample Flask app using Jenkins for CI, Flux for CD and Kubernetes for deployment
 
-This repo along with [https://github.com/sudohardik/sample-app](https://github.com/sudohardik/sample-app) creates a Jenkins pipeline with GitOps to deploy code into a Kubernetes cluster(we have used minikube here). CI part is done via Jenkins and CD part via FluxCD (GitOps).
+This repo along with [https://github.com/sudohardik/sample-app](https://github.com/sudohardik/sample-app) creates a Jenkins pipeline with GitOps to deploy code into a Kubernetes cluster(we have used minikube here). CI part is done via Jenkins and CD part via FluxCD (GitOps).  
+A simple ```git push``` to this repo triggers the BuildImage job on Jenkins via GitHub webhook, this job fetches the latest code changes, builds the Docker Image from Dockerfile and pushes it to Dockerhub. In the last stage this job triggers another job named UpdateManifest which simply updates the latest Docker Image tag in Deployment.yaml stored in sample-app repo. Already configured Flux watches this repo closely every 30s for any changes and spins up new pods automatically with latest configuration as soon as any new commits are encountered.
 
 # Workflow
 
