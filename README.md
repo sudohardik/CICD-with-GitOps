@@ -64,7 +64,7 @@ minikube service lb-service -n flask-app
 
 # Resources
 
-You can find the blog post for this repository here: [https://www.linkedin.com/pulse/how-deploy-kubernetes-jenkins-gitops-github-pipeline-rajdeep-saha/](https://www.linkedin.com/pulse/how-deploy-kubernetes-jenkins-gitops-github-pipeline-rajdeep-saha/)
+You can find the blog post for this repository here: [https://www.linkedin.com/pulse/how-deploy-kubernetes-jenkins-gitops-github-pipeline-rajdeep-saha/](https://www.linkedin.com/pulse/how-deploy-kubernetes-jenkins-gitops-github-pipeline-rajdeep-saha/)  
 AND the YouTube tutorial: [https://www.youtube.com/watch?v=o4QG_kqYvHk](https://www.youtube.com/watch?v=o4QG_kqYvHk)
 
 
