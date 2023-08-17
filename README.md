@@ -12,7 +12,7 @@ This repo along with [https://github.com/sudohardik/sample-app](https://github.c
 4. This is where GitOps comes into play. GitOps tool, FluxCD in this case, periodically checks the GitHub repo, and reconciles with the current state of the Kubernetes cluster. As soon as the Kubernetes cluster deviates from the state defined in GitHub, FluxCD applies the changes. In this case, as soon as the image tag is updated in the deployment file, it deviates from the state in the cluster. Hence FluxCD deploys this newly updated deployment file to the cluster, and that'd spin up pods running container image "sample-flask-app:10".
 5. The same process repeats itself when further changes are made to the code. As soon as code changes are pushed, job BuildImage is triggered with a new build number, builds the new container image with a newer tag, and pushes it to DockerHub. Then BuildImage job submits UpdateManifest job which updates the container image name in the deployment file. This makes GitOps detect a state difference between GitHub and running cluster (Deployment file has container image "sample-flask-app:11", and cluster is running "sample-flask-app:10). GitOps deploys the updated deployment.yaml file which brings up new pod with image "sample-flask-app:11" and terminates pods running "sample-flask-app:10". That's why in GitOps, Git becomes the single source of truth.
 
- Configure Dockerhub and GitHub credentials in jenkins
+ Configure Dockerhub and GitHub credentials in jenkins  
  Note: for github credentials store the username and personal access token instead of password.
 
 # Jenkinsfile for the BuildImage job
