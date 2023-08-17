@@ -14,10 +14,10 @@ A simple ```git push``` to this repo triggers the BuildImage job on Jenkins via 
 5. The same process repeats itself when further changes are made to the code. As soon as code changes are pushed, job BuildImage is triggered with a new build number, builds the new container image with a newer tag, and pushes it to DockerHub. Then BuildImage job submits UpdateManifest job which updates the container image name in the deployment file. This makes GitOps detect a state difference between GitHub and running cluster (Deployment file has container image "sample-flask-app:11", and cluster is running "sample-flask-app:10). GitOps deploys the updated deployment.yaml file which brings up new pod with image "sample-flask-app:11" and terminates pods running "sample-flask-app:10". That's why in GitOps, Git becomes the single source of truth.
 
  Configure Dockerhub and GitHub credentials in jenkins  
- Note: for github credentials store the username and personal access token instead of password.
-![image](https://github.com/sudohardik/CICD-with-GitOps/assets/62288121/8c129e90-dc3a-4c59-aaa2-4a583f4a7483)
+![image](https://github.com/sudohardik/CICD-with-GitOps/assets/62288121/8c129e90-dc3a-4c59-aaa2-4a583f4a7483)  
+Note: for github credentials store the username and personal access token instead of password.
 
-# Jenkinsfile for the BuildImage job
+# [Jenkinsfile](https://github.com/sudohardik/CICD-with-GitOps/blob/main/Jenkinsfile) for the BuildImage job
 ![image](https://github.com/sudohardik/CICD-with-GitOps/assets/62288121/23fcf7cc-7d99-4c78-9eee-aa43abf40497)
 
 1. The first stage clones the repo which has the application code and Dockerfile to the Jenkins environment.
@@ -26,7 +26,7 @@ A simple ```git push``` to this repo triggers the BuildImage job on Jenkins via 
 4. Next stage "Push image", as the name suggests, pushes the image to DockerHub. The word "dockerhub" is NOT a standard keyword. That is the ID under which my DockerHub credentials are stored in Jenkins, as shown in the screenshot. The ID "github" will be used by the next job.
 5. On the last stage, this job triggers Jenkins job UpdateManifest, and passes the BUILD_NUMBER to a parameter named DOCKERTAG as an input to this job.
 
-# Jenkinsfile for the UpdateManifest job
+# [Jenkinsfile](https://github.com/sudohardik/sample-app/blob/main/Jenkinsfile) for the UpdateManifest job
 ![image](https://github.com/sudohardik/CICD-with-GitOps/assets/62288121/15fb20bd-ea55-4719-bdc4-025e21b9949a)
 
 1. The first stage copies the sample-app repo to the Jenkins environment.
