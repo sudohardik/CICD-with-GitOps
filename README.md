@@ -15,8 +15,10 @@ A simple ```git push``` to this repo triggers the BuildImage job on Jenkins via 
 
  Configure Dockerhub and GitHub credentials in jenkins  
  Note: for github credentials store the username and personal access token instead of password.
+![image](https://github.com/sudohardik/CICD-with-GitOps/assets/62288121/8c129e90-dc3a-4c59-aaa2-4a583f4a7483)
 
 # Jenkinsfile for the BuildImage job
+![image](https://github.com/sudohardik/CICD-with-GitOps/assets/62288121/23fcf7cc-7d99-4c78-9eee-aa43abf40497)
 
 1. The first stage clones the repo which has the application code and Dockerfile to the Jenkins environment.
 2. In the next stage, docker.build runs the Dockerfile. "sudohardik" is my DockerHub account ID, and "sample-flask-app" is the name of my repo.
@@ -25,6 +27,7 @@ A simple ```git push``` to this repo triggers the BuildImage job on Jenkins via 
 5. On the last stage, this job triggers Jenkins job UpdateManifest, and passes the BUILD_NUMBER to a parameter named DOCKERTAG as an input to this job.
 
 # Jenkinsfile for the UpdateManifest job
+![image](https://github.com/sudohardik/CICD-with-GitOps/assets/62288121/15fb20bd-ea55-4719-bdc4-025e21b9949a)
 
 1. The first stage copies the sample-app repo to the Jenkins environment.
 2. The "sed" command in the second stage replaces the container image name in the deployment.yaml file with the latest tag number received in the parameter, DOCKERTAG. Note that the "sed" command is using "+" as delimiter instead of "/" because our search and replace terms consist of "/". The sample deployment file looks like below. After changing the file, it pushes the change to the GitHub repo, using credentials saved under ID "github" in Jenkins.
